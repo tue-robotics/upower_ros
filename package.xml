@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>upower_ros</name>
+  <version>0.0.1</version>
+  <description>
+    Package to get battery state via UPower/dbus
+  </description>
+  <maintainer email="MatthijsBurgh@outlook.com">Matthijs van der Burgh</maintainer>
+  <license>BSD</license>
+
+  <url type="repository">https://github.com/tue-robotics/upower_ros.git</url>
+  <url type="bugtracker">https://github.com/tue-robotics/upower_ros/issues</url>
+  <author>Matthijs van der Burgh</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>rospy</depend>
+  <depend>sensor_msgs</depend>
+
+</package>
