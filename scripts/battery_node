@@ -1,41 +1,8 @@
 #! /usr/bin/env python
 
-from upower_ros.upower import UPowerDevice, dbus_battery_status_mapping, dbus_battery_technology_mapping
+from upower_ros.battery_node import BatteryNode
 
 import rospy
-from sensor_msgs.msg import BatteryState
-
-
-class BatteryNode(object):
-    def __init__(self,
-                 battery_topic="battery_state",
-                 topic_rate=1,
-                 upower_path="/org/freedesktop/UPower/devices/battery_BAT0"):
-        self.battery = UPowerDevice(upower_path=upower_path)
-        self.pub = rospy.Publisher(battery_topic, BatteryState, queue_size=1)
-        self.rate = rospy.Rate(topic_rate)
-
-    def generate_msg(self):
-        msg = BatteryState()
-        msg.header.stamp.secs = self.battery["UpdateTime"]
-        msg.voltage = self.battery["Voltage"]
-        msg.current = -self.battery["EnergyRate"]
-        msg.charge = self.battery["Energy"]
-        msg.capacity = self.battery["EnergyFull"]
-        msg.design_capacity = self.battery["EnergyFullDesign"]
-        msg.percentage = self.battery["Percentage"]/100.0
-        msg.power_supply_status = dbus_battery_status_mapping[self.battery["State"]]
-        msg.power_supply_health = msg.POWER_SUPPLY_HEALTH_UNKNOWN
-        msg.power_supply_technology = dbus_battery_technology_mapping[self.battery["Technology"]]
-        msg.present = self.battery["IsPresent"]
-        msg.location = ""
-        msg.serial_number = self.battery["Serial"]
-        return msg
-
-    def loop(self):
-        while not rospy.is_shutdown():
-            self.pub.publish(self.generate_msg())
-            self.rate.sleep()
 
 
 if __name__ == "__main__":
