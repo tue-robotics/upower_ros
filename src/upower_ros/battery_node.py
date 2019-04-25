@@ -44,7 +44,7 @@ class BatteryNode(object):
         msg.design_capacity = self.battery["EnergyFullDesign"]
         msg.percentage = self.battery["Percentage"]/100.0
         msg.power_supply_status = dbus_battery_status_mapping[self.battery["State"]]
-        msg.power_supply_health = msg.POWER_SUPPLY_HEALTH_UNKNOWN
+        msg.power_supply_health = BatteryState.POWER_SUPPLY_HEALTH_UNKNOWN
         msg.power_supply_technology = dbus_battery_technology_mapping[self.battery["Technology"]]
         msg.present = self.battery["IsPresent"]
         msg.location = ""
