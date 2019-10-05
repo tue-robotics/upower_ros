@@ -5,7 +5,7 @@ from sensor_msgs.msg import BatteryState
 
 
 class BatteryNode(object):
-    def __init__(self, battery_topic=None, topic_rate=None, upower_path=None, location=""):
+    def __init__(self, battery_topic=None, topic_rate=None, upower_path=None, location=None):
         # type: (Union[str, None], Union[float, None], Union[str, None]) -> None
         """
         If parameter isn't provided. The ROS parameter server is checked (private params). Otherwise the default value
