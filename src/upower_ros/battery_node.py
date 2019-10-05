@@ -47,7 +47,7 @@ class BatteryNode(object):
         msg.power_supply_health = BatteryState.POWER_SUPPLY_HEALTH_UNKNOWN
         msg.power_supply_technology = dbus_battery_technology_mapping[self.battery["Technology"]]
         msg.present = self.battery["IsPresent"]
-        msg.location = ""
+        msg.location = "laptop"
         msg.serial_number = self.battery["Serial"]
         return msg
 
