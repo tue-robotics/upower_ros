@@ -28,7 +28,7 @@ class BatteryNode(object):
         if location is None:
             location = rospy.get_param("~location", "")
 
-        assert isinstance(location, str)
+        assert isinstance(location, str), "Location must be a string"
 
         self.battery = UPowerDevice(upower_path=upower_path)
         self.location = location
