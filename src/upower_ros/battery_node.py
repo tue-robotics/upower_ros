@@ -34,7 +34,6 @@ class BatteryNode(object):
         self.location = location
         self.pub = rospy.Publisher(battery_topic, BatteryState, queue_size=1)
         self.rate = rospy.Rate(topic_rate)
-        
 
     def generate_msg(self):
         # type: () -> BatteryState
