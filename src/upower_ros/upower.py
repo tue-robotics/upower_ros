@@ -5,7 +5,7 @@ from xml.etree import ElementTree as ET
 
 class BatteryState(Enum):
     Unknown = 0
-    Loading = 1
+    Charging = 1
     Discharging = 2
     Empty = 3
     Fully_charged = 4
@@ -147,10 +147,10 @@ class UPowerManager(UPowerBase):
 
         return self.Wakeups.upower_interface.GetTotal()
 
-    def is_loading(self, battery):
+    def is_charging(self, battery):
         # type: (str) -> bool
         state = int(self._devices[battery]["State"])
-        return state == 1
+        return state == BatteryState.Charging
 
     def get_state(self, battery):
         # type: (str) -> str
