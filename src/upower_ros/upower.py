@@ -150,7 +150,7 @@ class UPowerManager(UPowerBase):
     def is_charging(self, battery):
         # type: (str) -> bool
         state = int(self._devices[battery]["State"])
-        return state == BatteryState.Charging
+        return state == BatteryState.Charging.value
 
     def get_state(self, battery):
         # type: (str) -> str
