@@ -4,9 +4,12 @@ from upower_ros.battery_node import BatteryNode
 
 import rospy
 
+import sys
+
 
 if __name__ == "__main__":
     rospy.init_node("battery_node")
+    check_master = rospy.get_param("~check_master", False)
     battery_node = BatteryNode()
-    battery_node.loop()
+    sys.exit(battery_node.loop(check_master))
 
