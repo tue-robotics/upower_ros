@@ -1,4 +1,4 @@
-from upower_ros.upower import UPowerDevice, dbus_battery_status_mapping, dbus_battery_technology_mapping
+from upower_ros.upower import UPowerDevice, dbus_battery_status_mapping, dbus_battery_technology_mapping, BatteryState as BatteryStateEnum
 
 import rospy
 from sensor_msgs.msg import BatteryState
@@ -45,7 +45,9 @@ class BatteryNode(object):
         msg = BatteryState()
         msg.header.stamp.secs = self.battery["UpdateTime"]
         msg.voltage = self.battery["Voltage"]
-        msg.current = -self.battery["EnergyRate"]
+        msg.current = self.battery["EnergyRate"]
+        if int(self.battery["State"]) != BatteryStateEnum.Charging.value:
+			msg.current = -msg.current
         msg.charge = self.battery["Energy"]
         msg.capacity = self.battery["EnergyFull"]
         msg.design_capacity = self.battery["EnergyFullDesign"]
