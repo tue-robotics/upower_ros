@@ -3,6 +3,8 @@ from upower_ros.upower import UPowerDevice, dbus_battery_status_mapping, dbus_ba
 import rospy
 from sensor_msgs.msg import BatteryState
 
+import socket
+
 
 class BatteryNode(object):
     def __init__(self, battery_topic=None, topic_rate=None, upower_path=None, location=None):
@@ -34,6 +36,7 @@ class BatteryNode(object):
         self.location = location
         self.pub = rospy.Publisher(battery_topic, BatteryState, queue_size=1)
         self.rate = rospy.Rate(topic_rate)
+        self.last_master_check = rospy.get_time()
 
     def generate_msg(self):
         # type: () -> BatteryState
@@ -47,7 +50,7 @@ class BatteryNode(object):
         msg.voltage = self.battery["Voltage"]
         msg.current = self.battery["EnergyRate"]
         if int(self.battery["State"]) != BatteryStateEnum.Charging.value:
-			msg.current = -msg.current
+            msg.current = -msg.current
         msg.charge = self.battery["Energy"]
         msg.capacity = self.battery["EnergyFull"]
         msg.design_capacity = self.battery["EnergyFullDesign"]
@@ -60,13 +63,26 @@ class BatteryNode(object):
         msg.serial_number = self.battery["Serial"]
         return msg
 
-    def loop(self):
+    def loop(self, check_master=False):
         """
         Loop function to publish with a constant rate
+
+        :param check_master: Check connection to master at 1Hz
+        :return: return code to indicate connection to master was lost
         """
+
         while not rospy.is_shutdown():
             self.publish()
+            if check_master and rospy.get_time() >= self.last_master_check + 1:
+                self.last_master_check = rospy.get_time()
+                try:
+                    rospy.get_master().getPid()
+                except socket.error:
+                    rospy.logdebug("Connection to master is lost")
+                    return 1  # This should result in a non-zero error code of the entire program
             self.rate.sleep()
+
+        return 0
 
     def publish(self):
         """
