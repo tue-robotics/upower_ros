@@ -1,2 +1,2 @@
-import upower
-import battery_node
+from . import upower
+from . import battery_node
