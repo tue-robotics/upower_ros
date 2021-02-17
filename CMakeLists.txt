@@ -15,3 +15,7 @@ catkin_package(
     rospy
     sensor_msgs
 )
+
+if (CATKIN_ENABLE_TESTING)
+  catkin_add_nosetests(test)
+endif()
