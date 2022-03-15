@@ -12,4 +12,3 @@ if __name__ == "__main__":
     check_master = rospy.get_param("~check_master", False)
     battery_node = BatteryNode()
     sys.exit(battery_node.loop(check_master))
-
