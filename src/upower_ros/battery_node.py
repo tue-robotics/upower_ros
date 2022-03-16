@@ -1,4 +1,11 @@
-from upower_ros.upower import UPowerDevice, dbus_battery_status_mapping, dbus_battery_technology_mapping, BatteryState as BatteryStateEnum
+from typing import Optional
+
+from upower_ros.upower import (
+    UPowerDevice,
+    dbus_battery_status_mapping,
+    dbus_battery_technology_mapping,
+    BatteryState as BatteryStateEnum,
+)
 
 import rospy
 from sensor_msgs.msg import BatteryState
@@ -7,8 +14,13 @@ import socket
 
 
 class BatteryNode(object):
-    def __init__(self, battery_topic=None, topic_rate=None, upower_path=None, location=None):
-        # type: (Union[str, None], Union[float, None], Union[str, None]) -> None
+    def __init__(
+        self,
+        battery_topic: Optional[str] = None,
+        topic_rate: Optional[float] = None,
+        upower_path: Optional[str] = None,
+        location: Optional[str] = None,
+    ):
         """
         If parameter isn't provided. The ROS parameter server is checked (private params). Otherwise the default value
         is used.
@@ -38,8 +50,7 @@ class BatteryNode(object):
         self.rate = rospy.Rate(topic_rate)
         self.last_master_check = rospy.get_time()
 
-    def generate_msg(self):
-        # type: () -> BatteryState
+    def generate_msg(self) -> BatteryState:
         """
         Generate a BatteryState msg with the current state of the battery
         :return: filled BatteryState msg
@@ -54,7 +65,7 @@ class BatteryNode(object):
         msg.charge = self.battery["Energy"]
         msg.capacity = self.battery["EnergyFull"]
         msg.design_capacity = self.battery["EnergyFullDesign"]
-        msg.percentage = self.battery["Percentage"]/100.0
+        msg.percentage = self.battery["Percentage"] / 100.0
         msg.power_supply_status = dbus_battery_status_mapping[self.battery["State"]]
         msg.power_supply_health = BatteryState.POWER_SUPPLY_HEALTH_UNKNOWN
         msg.power_supply_technology = dbus_battery_technology_mapping[self.battery["Technology"]]
