@@ -68,7 +68,7 @@ class UPowerBase(object):
             node_name = child.get("name")
             if self.upower_path.endswith("devices"):
                 self._nodes[node_name] = UPowerDevice(upower_path=self.upower_path + "/" + node_name)
-            elif self.upower_path.endswith("Wakeups"):
+            elif node_name == "Wakeups":
                 self._nodes[node_name] = UPowerBase(
                     upower_interface="org.freedesktop.UPower.Wakeups", upower_path=self.upower_path + "/" + node_name
                 )
