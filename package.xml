@@ -6,7 +6,7 @@
   <name>upower_ros</name>
   <version>0.0.1</version>
   <description>
-    Package to get battery state via UPower/dbus
+    UPower/dbus is used to provide the battery state of a machine
   </description>
   <maintainer email="MatthijsBurgh@outlook.com">Matthijs van der Burgh</maintainer>
   <license>BSD</license>
