@@ -80,7 +80,7 @@ class UPowerBase(object):
         if item not in self.properties:
             raise KeyError("{} not in self.properties".format(item))
         else:
-            (interface, prop, mapping) = self.properties[item]
+            interface, prop, mapping = self.properties[item]
             return mapping(self.property_interface.Get(interface, prop))
 
     def __iter__(self):
