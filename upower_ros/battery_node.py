@@ -36,6 +36,14 @@ class BatteryNode(Node):
         location = self.declare_parameter("location", "").value
 
         self.battery = UPowerDevice(upower_path=upower_path)
+        if not self.battery.properties:
+            msg = (
+                f"No UPower device with readable properties found at '{upower_path}'. "
+                f"Check the 'upower_path' parameter; run 'upower -e' to list the available devices."
+            )
+            self.get_logger().fatal(msg)
+            raise RuntimeError(msg)
+
         self.location = location
         self.pub = self.create_publisher(BatteryState, battery_topic, 1)
         self.timer = self.create_timer(1.0 / topic_rate, self.publish)
