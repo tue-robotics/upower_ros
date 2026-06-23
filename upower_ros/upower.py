@@ -116,6 +116,20 @@ class UPowerBase:
         """Iterate over the available property names."""
         return iter(self.properties)
 
+    def __getattr__(self, name: str) -> UPowerBase:
+        """Resolve child nodes that are attached dynamically during introspection.
+
+        This only runs when normal attribute lookup fails, so it preserves the
+        regular ``AttributeError`` behaviour (and thus ``hasattr``) at runtime
+        while giving statically attached nodes a declared type.
+
+        :param name: attribute name
+        :raises AttributeError: if no such node exists
+        :return: the requested child node
+        """
+        msg = f"{type(self).__name__!r} object has no attribute {name!r}"
+        raise AttributeError(msg)
+
 
 class UPowerManager(UPowerBase):
     """UPower manager exposing the system-wide power devices and state."""
@@ -212,7 +226,7 @@ class UPowerManager(UPowerBase):
         :return: state name
         """
         state = int(self._devices[battery]["State"])
-        return BatteryState(state).name
+        return str(BatteryState(state).name)
 
 
 class UPowerDevice(UPowerBase):
