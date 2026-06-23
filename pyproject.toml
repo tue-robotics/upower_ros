@@ -1,0 +1,181 @@
+[tool.ruff]
+force-exclude = true
+line-length = 120
+output-format = "full"
+target-version = "py38"  # Should match the minumum version in pyproject.toml
+exclude = [
+    ".git",
+    ".mypy_cache",
+    ".mypy",
+    ".pytest_cache",
+    ".ruff_cache",
+    "__pycache__",
+    ".coverage",
+    "coverage",
+    ".tox",
+    ".idea",
+]
+
+[tool.ruff.lint]
+select = [
+    # Airflow
+    # "AIR",
+    # Eradicate
+    # "ERA",
+    # FastAPI
+    # "FAST",
+    # flake8
+    "YTT", # flake8-2020
+    "ANN", # flake8-annotations
+    "ASYNC", # flake8-async
+    "S", # flake8-bandit
+    "BLE", # flake8-blind-except
+    "FBT", #flake8-boolean-trap
+    "B", # flake8-bugbear
+    "A", # flake8-builtins
+    "COM", # flake8-commas
+    "C4", # flake8-comprehensions
+    # "CPY", # flake8-copyright
+    "DTZ", # flake8-datetimez
+    "T10", # flake8-debugger
+    # "DJ", # flake8-django
+    "EM", # flake8-errmsg
+    "EXE", # flake8-executable
+    # "FIX", # flake8-fixme
+    "FA", # flake8-future-annotations
+    "INT", # flake8-gettext
+    "ISC", # flake8-implicit-str-concat
+    "ICN", # flake8-import-conventions
+    "LOG", # flake8-logging
+    "G", # flake8-logging-format
+    "INP", # flake8-no-pep420
+    "PIE", # flake8-pie
+    "T20", # flake8-print
+    "PYI", # flake8-pyi
+    "PT", # flake8-pytest-style
+    "Q", # flake8-quotes
+    "RSE", # flake8-raise
+    "RET", # flake8-return
+    "SLF", # flake8-self
+    "SLOT", # flake8-slots
+    "SIM", # flake8-simplify
+    "TID", # flake8-tidy-imports
+    "TD", # flake8-todos
+    "TC", # flake8-type-checking
+    "ARG", # flake8-unsued-arguments
+    "PTH", # flake8-use-pathlib
+    # flynt
+    "FLY",
+    # isort
+    "I",
+    # mccabe
+    # "C90",
+    # NumPy-specific rules
+    "NPY",
+    # pandas-vet
+    "PD",
+    # pep8-naming
+    "N",
+    # Perflint
+    "PERF",
+    # PYcodestyle
+    "E", # Errors
+    "W", # Warnings
+    # pydoclint
+#    "DOC",
+    # pydocstyle
+    "D",
+    # Pyflakes
+    "F",
+    # pygrep-hooks
+    "PGH",
+    # Pylint
+    "PL",
+    # "PLC", # Convention
+    # "PLE", # Error
+    # "PLR", # Refactor
+    # "PLW", # Warning
+    # pyupgrade
+    "UP",
+    # refurb
+     "FURB", # in preview
+    # Ruff-specific rules
+    "RUF",
+    # tryceratrops (exception handling linting)
+    "TRY",
+]
+# Ignore codes such as "F401"
+ignore = [
+    "ANN002", # Don't annotate *args
+    "ANN003", # Don't annotate **kwargs
+    "COM812", # Possibly conflicting with the formatter; Missing trailing comma
+    "COM819", # Possibly conflicting with the formatter; Prohibited trailing comma
+    "D100", # Missing docstring in public module
+    "D104", # Missing docstring in public package
+    "D105", # Missing docstring in public magic method
+    "D206", # Fixed by the formatter; Docstring should be indented with spaces, not tabs
+    "D207", # Fixed by the formatter; Docstring is under-indented
+    "D208", # Fixed by the formatter; Docstring is over-indented
+    "D300", # Fixed by the formatter; Use """triple double quotes""" (found '''triple single quotes''')
+    "E111", # Fixed by the formatter; Indentation is not a multiple of four
+    "E114", # Fixed by the formatter; Indentation is not a multiple of four (comment)
+    "E117", # Fixed by the formatter; Over-indented
+    "ISC001", # Possibly conflicting with the formatter; Avoid implicit string concatenation
+    "Q000", # Fixed by the formatter; Fix bad inline quotes
+    "Q001", # Fixed by the formatter; Fix bad multiline quotes
+    "Q002", # Fixed by the formatter; Fix bad docstring quotes
+    "Q003", # Fixed by the formatter; Fix avoidable escape quotes
+    "Q004", # Fixed by the formatter; Fix unnecessary escape quotes
+    "RET501", # Allow explicit return of None, even when None is the only optional return value
+    "TD003", # No need add a link following a TODO
+    "W191", # Fixed by the formatter; Indentation contains tabs
+]
+
+[tool.ruff.lint.per-file-ignores]
+"test/*" = [
+    "D101", # Missing docstring in public class
+    "D102", # Missing docstring in public method
+    "PLR2004",  # Magic value used in comparison
+    "S101", # Assert
+]
+
+[tool.ruff.lint.flake8-annotations]
+allow-star-arg-any = true
+mypy-init-return = true
+suppress-dummy-args = true
+
+[tool.ruff.lint.flake8-quotes]
+docstring-quotes = "double"
+inline-quotes = "double"
+multiline-quotes = "double"
+
+[tool.ruff.lint.flake8-type-checking]
+quote-annotations = false
+
+[tool.ruff.lint.isort]
+case-sensitive = true
+combine-as-imports = true
+split-on-trailing-comma = false
+
+[tool.ruff.lint.pep8-naming]
+ignore-names = ["i","x","y","z","w"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+indent-style = "space"
+quote-style = "double"
+skip-magic-trailing-comma = true
+
+[tool.mypy]
+disallow_untyped_defs = true
+ignore_missing_imports = true
+no_implicit_optional = true
+pretty = true
+show_error_codes = true
+warn_return_any = true
+warn_unused_ignores = true
+
+[tool.pytest.ini_options]
+filterwarnings = ["ignore:SelectableGroups dict interface is deprecated. Use select.:DeprecationWarning"]
