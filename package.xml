@@ -1,38 +1,28 @@
 <?xml version="1.0"?>
-<?xml-model
-  href="http://download.ros.org/schema/package_format3.xsd"
-  schematypens="http://www.w3.org/2001/XMLSchema"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
 <package format="3">
   <name>upower_ros</name>
   <version>0.0.1</version>
-  <description>
-    UPower/dbus is used to provide the battery state of a machine
-  </description>
+  <description>UPower/dbus is used to provide the battery state of a machine</description>
   <maintainer email="MatthijsBurgh@outlook.com">Matthijs van der Burgh</maintainer>
   <license>BSD</license>
 
-  <url type="repository">https://github.com/tue-robotics/upower_ros.git</url>
   <url type="bugtracker">https://github.com/tue-robotics/upower_ros/issues</url>
-  <author>Matthijs van der Burgh</author>
+  <url type="repository">https://github.com/tue-robotics/upower_ros</url>
 
-  <buildtool_depend>catkin</buildtool_depend>
-
-  <buildtool_depend>python3-setuptools</buildtool_depend>
-
-  <depend>rospy</depend>
-  <depend>sensor_msgs</depend>
+  <author email="MatthijsBurgh@outlook.com">Matthijs van der Burgh</author>
 
   <exec_depend>python3-dbus</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
 
-  <test_depend>catkin_lint_cmake</test_depend>
-
-  <doc_depend>python3-sphinx</doc_depend>
-  <doc_depend>python-sphinx-autoapi-pip</doc_depend>
-  <doc_depend>python-sphinx-rtd-theme-pip</doc_depend>
-  <doc_depend>python3-yaml</doc_depend>
+  <test_depend>ament_copyright</test_depend>
+  <test_depend>ament_mypy</test_depend>
+  <test_depend>ament_ruff</test_depend>
+  <test_depend>ament_xmllint</test_depend>
+  <test_depend>python3-pytest</test_depend>
 
   <export>
-    <rosdoc config="rosdoc.yaml" />
+    <build_type>ament_python</build_type>
   </export>
-
 </package>
